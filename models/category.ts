@@ -1,10 +1,10 @@
 import { Category as ChecCategory } from "@chec/commerce.js/types/category";
 
-type Children = {
+export type Subcategory = {
   id: string;
   slug: string;
   name: string;
   assets: any;
 };
 
-export type Category = ChecCategory & { children?: Children[] };
+export type Category = ChecCategory & { children?: Subcategory[] };

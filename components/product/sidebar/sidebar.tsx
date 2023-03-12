@@ -9,7 +9,7 @@ export const Sidebar = memo(function Sidebar() {
 
   return (
     <Box>
-      <Accordion defaultIndex={[0]} allowMultiple>
+      <Accordion defaultIndex={[0, 1, 2, 3]} allowMultiple>
         {categories
           ?.filter((category) => category?.children?.length)
           ?.map((category) => (

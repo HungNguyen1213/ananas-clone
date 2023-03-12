@@ -71,7 +71,7 @@ export function NavRouteItem({
           >
             <HStack>
               <Text>{label}</Text>
-              {rightIcon && <Icon color="black" boxSize={5} as={rightIcon} />}
+              {rightIcon && <Icon color="inherit" boxSize={5} as={rightIcon} />}
             </HStack>
           </ChakraLink>
         </Box>
