@@ -2,23 +2,14 @@ import React, { useRef } from "react";
 import { Swiper as SwiperType, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Flex, IconButton } from "@chakra-ui/react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+
+import { HOT_NEWS } from "@/configs";
 
 import "swiper/swiper.min.css";
 import "swiper/css/navigation";
-import { NavItem } from "@/models";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 export function HotNews() {
-  const hotNews: NavItem[] = [
-    {
-      label: "BUY 2 GET 10% OFF - ÁP DỤNG VỚI TẤT CẢ BASIC TEE",
-      href: "/faqs",
-    },
-    { label: "FREE SHIPPING VỚI HOÁ ĐƠN TỪ 800K !", href: "/faqs" },
-    { label: "HÀNG 2 TUẦN NHẬN ĐỔI - GIÀY NỬA NĂM BẢO HÀNH", href: "/policy" },
-    { label: "BUY MORE PAY LESS - ÁP DỤNG KHI MUA PHỤ KIỆN", href: "/faqs" },
-  ];
-
   const swiperRef = useRef<SwiperType>();
   const navigationNextRef = useRef<HTMLButtonElement>(null);
   const navigationPrevRef = useRef<HTMLButtonElement>(null);
@@ -55,7 +46,7 @@ export function HotNews() {
         speed={600}
         className="hot-news_swiper"
       >
-        {hotNews.map((item) => (
+        {HOT_NEWS.map((item) => (
           <SwiperSlide key={item.label}>
             <Flex
               height="100%"

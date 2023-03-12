@@ -1,50 +1,18 @@
 import { Box, HStack } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Image from "next/image";
-import { MdFavorite } from "react-icons/md";
-import { ImStackoverflow } from "react-icons/im";
-import { GiPositionMarker } from "react-icons/gi";
-import { FaUser, FaShoppingCart } from "react-icons/fa";
 
-import { NavItem } from "@/models";
 import { Input } from "@/components";
 import { NavControlPanel } from "./nav-item";
 import { HotNews } from "./hot-news";
 import { NavDesktop } from "./nav-desktop";
+import { CONTROL_ROUTES } from "@/configs";
 
 import logo from "@/images/logo.svg";
 
 export default function Navbar() {
-  const controlRoutes: NavItem[] = [
-    {
-      label: "Tra cứu đơn hàng",
-      href: "/search-order",
-      leftIcon: ImStackoverflow,
-    },
-    {
-      label: "Tìm cửa hàng",
-      href: "/stores",
-      leftIcon: GiPositionMarker,
-    },
-    {
-      label: "Yêu thích",
-      href: "/your-wishlist",
-      leftIcon: MdFavorite,
-    },
-    {
-      label: "Đăng nhập",
-      href: "/coming-soon",
-      leftIcon: FaUser,
-    },
-    {
-      label: "Giỏ hàng",
-      href: "/your-cart",
-      leftIcon: FaShoppingCart,
-    },
-  ];
-
   return (
-    <Box>
+    <Box mb="8">
       <HStack
         bg="blackAlpha.800"
         justify="flex-end"
@@ -54,7 +22,7 @@ export default function Navbar() {
         pr={16}
         mb={3}
       >
-        {controlRoutes.map((route) => (
+        {CONTROL_ROUTES.map((route) => (
           <NavControlPanel key={route.href} route={route} />
         ))}
       </HStack>

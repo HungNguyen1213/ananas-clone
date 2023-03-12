@@ -1,14 +1,10 @@
-import {
-  Box,
-  Center,
-  useColorModeValue,
-  Heading,
-  Text,
-  Stack,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Center, Heading, Text, Stack } from "@chakra-ui/react";
 
 import { ProductSummary } from "@/models";
+import Link from "next/link";
+import Image from "next/image";
+
+import noImage from "@/images/product-no-image.png";
 
 interface ProductCardProps {
   product: ProductSummary;
@@ -16,13 +12,12 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <Center py={12}>
-      <Box
+    <Center pt={8} height={"full"} pb={4}>
+      <Stack
         role={"group"}
-        p={6}
-        maxW={"330px"}
+        p={4}
         w={"full"}
-        bg={useColorModeValue("white", "gray.800")}
+        height={"full"}
         boxShadow={"2xl"}
         rounded={"lg"}
         pos={"relative"}
@@ -30,53 +25,57 @@ export function ProductCard({ product }: ProductCardProps) {
       >
         <Box
           rounded={"lg"}
-          mt={-12}
+          mt={-8}
           pos={"relative"}
-          height={"230px"}
-          _after={{
-            transition: "all .3s ease",
-            content: '""',
-            w: "full",
-            h: "full",
-            pos: "absolute",
-            top: 5,
-            left: 0,
-            backgroundImage: `url(${product?.image?.url})`,
-            filter: "blur(15px)",
-            zIndex: -1,
-          }}
-          _groupHover={{
-            _after: {
-              filter: "blur(20px)",
-            },
-          }}
+          pt="100%"
+          width="100%"
+          boxShadow={"md"}
         >
-          <Image
+          <Box
+            width="100%"
+            height="100%"
+            position="absolute"
+            top={0}
+            left={0}
             rounded={"lg"}
-            height={230}
-            width={282}
-            objectFit={"cover"}
-            src={product?.image?.url}
-            alt="product"
-          />
+            overflow="hidden"
+            sx={{ "& img": { objectFit: "cover" } }}
+          >
+            <Image src={product?.image?.url || noImage} fill alt="product" />
+          </Box>
         </Box>
-        <Stack pt={10} align={"center"}>
-          <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
-            Brand
-          </Text>
-          <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-            Nice Chair, pink
-          </Heading>
+        <Stack
+          pt={4}
+          height={"full"}
+          align={"center"}
+          textAlign="center"
+          textTransform={"uppercase"}
+          justify="space-between"
+        >
+          <Stack>
+            <Text color={"gray.500"} fontSize={"sm"}>
+              Brand
+            </Text>
+            <Heading
+              fontSize={"lg"}
+              fontFamily={"Nunito Sans, sans-serif"}
+              _hover={{ color: "primary" }}
+            >
+              <Link href={`/product-details/${product.permalink}`}>
+                {product.name}
+              </Link>
+            </Heading>
+          </Stack>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
-              $57
+              {product.price.formatted_with_symbol}
             </Text>
-            <Text textDecoration={"line-through"} color={"gray.600"}>
-              $199
-            </Text>
+            {/* <Text textDecoration={"line-through"} color={"gray.600"}>
+             Discount
+            </Text> */}
           </Stack>
         </Stack>
-      </Box>
+      </Stack>
     </Center>
   );
 }

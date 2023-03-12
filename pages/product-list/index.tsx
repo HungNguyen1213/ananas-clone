@@ -1,26 +1,17 @@
-import { GetStaticProps } from "next";
+import { GetStaticProps, GetStaticPropsContext } from "next";
 import { ProductCollection } from "@chec/commerce.js/features/products";
 import { Product } from "@chec/commerce.js/types/product";
 
 import { ProductSummary } from "@/models";
-import { Grid, GridItem } from "@chakra-ui/react";
 import { commerce } from "@/libs";
-import { ProductCard } from "@/components/product";
+import { ProductPanel } from "@/components";
 
 interface ProductListProps {
   productList: ProductSummary[];
 }
 
 const ProductList = ({ productList }: ProductListProps) => {
-  return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-      {productList.map((product: ProductSummary) => (
-        <GridItem key={product.id}>
-          <ProductCard product={product} />
-        </GridItem>
-      ))}
-    </Grid>
-  );
+  return <ProductPanel productList={productList} />;
 };
 
 export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
@@ -32,6 +23,7 @@ export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
       name: product.name,
       image: product.image,
       price: product.price,
+      permalink: product.permalink,
     })) || [];
 
   return { props: { productList } };
