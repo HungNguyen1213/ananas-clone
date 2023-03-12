@@ -1,5 +1,4 @@
-import { GetStaticProps, GetStaticPropsContext } from "next";
-import { ProductCollection } from "@chec/commerce.js/features/products";
+import { GetStaticProps } from "next";
 import { Product } from "@chec/commerce.js/types/product";
 
 import { ProductSummary } from "@/models";
@@ -15,10 +14,9 @@ const ProductList = ({ productList }: ProductListProps) => {
 };
 
 export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
-  const res: ProductCollection = await commerce.products.list();
-
+  const { data: resProducts } = await commerce.products.list();
   const productList: ProductSummary[] =
-    res?.data?.map((product: Product) => ({
+    resProducts?.map((product: Product) => ({
       id: product.id,
       name: product.name,
       image: product.image,

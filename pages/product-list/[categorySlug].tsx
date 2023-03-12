@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
-import { ProductCollection } from "@chec/commerce.js/features/products";
 import { Product } from "@chec/commerce.js/types/product";
 
 import { ProductSummary } from "@/models";
@@ -12,7 +11,6 @@ interface ProductListByCategoryProps {
 }
 
 const ProductListByCategory = ({ productList }: ProductListByCategoryProps) => {
-  console.log({ productList });
   return <ProductPanel productList={productList} />;
 };
 
@@ -26,7 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<
   ProductListByCategoryProps
 > = async ({ params }: GetStaticPropsContext) => {
-  const res: ProductCollection = await commerce.products.list({
+  const res = await commerce.products.list({
     category_slug: params?.categorySlug,
   });
 

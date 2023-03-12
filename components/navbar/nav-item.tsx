@@ -1,5 +1,5 @@
 import { NavItem } from "@/models";
-import { HStack, Link as ChakraLink, Text, Icon } from "@chakra-ui/react";
+import { HStack, Link as ChakraLink, Text, Icon, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -31,29 +31,51 @@ export function NavControlPanel({
 export function NavRouteItem({
   route: { label, href, rightIcon },
 }: NavControlPanelProps) {
+  const isLink = href !== "#";
   return (
-    <Link href={href} passHref>
-      <ChakraLink
-        as="div"
-        fontSize="23px"
-        textTransform="uppercase"
-        fontWeight="bold"
-        _hover={{ color: "primary" }}
-        role="group"
-        px={3}
-      >
-        <HStack>
-          <Text>{label}</Text>
-          {rightIcon && (
-            <Icon
-              color="black"
-              boxSize={5}
-              as={rightIcon}
-              _groupHover={{ color: "primary" }}
-            />
-          )}
-        </HStack>
-      </ChakraLink>
-    </Link>
+    <>
+      {isLink ? (
+        <Link href={href} passHref>
+          <ChakraLink
+            as="div"
+            fontSize="23px"
+            textTransform="uppercase"
+            fontWeight="bold"
+            _hover={{ color: "primary" }}
+            role="group"
+            px={3}
+          >
+            <HStack>
+              <Text>{label}</Text>
+              {rightIcon && (
+                <Icon
+                  color="black"
+                  boxSize={5}
+                  as={rightIcon}
+                  _groupHover={{ color: "primary" }}
+                />
+              )}
+            </HStack>
+          </ChakraLink>
+        </Link>
+      ) : (
+        <Box>
+          <ChakraLink
+            as="div"
+            fontSize="23px"
+            textTransform="uppercase"
+            fontWeight="bold"
+            _hover={{ textDecoration: "none" }}
+            role="group"
+            px={3}
+          >
+            <HStack>
+              <Text>{label}</Text>
+              {rightIcon && <Icon color="black" boxSize={5} as={rightIcon} />}
+            </HStack>
+          </ChakraLink>
+        </Box>
+      )}
+    </>
   );
 }
