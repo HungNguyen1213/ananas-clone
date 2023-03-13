@@ -2,7 +2,8 @@ import { Accordion, Box } from "@chakra-ui/react";
 import React, { memo } from "react";
 
 import { Category } from "@/models";
-import { SidebarGroup } from "./sidebar-group";
+import { SidebarItem } from "./sidebar-item";
+import { AccordionItem } from "@/components";
 
 interface SidebarProps {
   categoryList: Category[];
@@ -20,7 +21,11 @@ export const Sidebar = memo(function Sidebar({ categoryList }: SidebarProps) {
         allowMultiple
       >
         {sidebarGroup?.map((category) => (
-          <SidebarGroup key={category.id} category={category} />
+          <AccordionItem key={category.id} title={category.name}>
+            {category?.children?.map((item) => (
+              <SidebarItem key={item.id} subCategory={item} />
+            ))}
+          </AccordionItem>
         ))}
       </Accordion>
     </Box>

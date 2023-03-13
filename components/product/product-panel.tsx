@@ -12,7 +12,7 @@ export interface ProductPanelProps {
 
 export function ProductPanel({ productList, categoryList }: ProductPanelProps) {
   return (
-    <Container maxW="1200px" px={{ lg: 0 }}>
+    <Container>
       <HStack gap={4} align="flex-start">
         <Box w="25%" flexShrink={0}>
           <Sidebar categoryList={categoryList} />

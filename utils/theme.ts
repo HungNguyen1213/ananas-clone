@@ -1,4 +1,4 @@
-import { defineStyleConfig, extendTheme } from "@chakra-ui/react";
+import { defineStyle, defineStyleConfig, extendTheme } from "@chakra-ui/react";
 
 const colors = {
   primary: "#f15e2c",
@@ -17,24 +17,6 @@ const styles = {
       color: "black",
       fontFamily: "Ubuntu, sans-serif",
     },
-    ".swiper": {
-      width: "50%",
-      height: "100%",
-      margin: "0 !important",
-    },
-    ".swiper-slide": {
-      textAlign: "center",
-      fontSize: "16px",
-      fontWeight: "600",
-      textTransform: "uppercase",
-      fontFamily: "Nunito Sans, sans-serif",
-    },
-    ".swiper-slide img": {
-      display: "block",
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-    },
   },
 };
 
@@ -51,11 +33,26 @@ const textStyles = {
     lineHeight: "110%",
     textTransform: "uppercase",
   },
+  p: {
+    fontSize: ["16px"],
+    lineHeight: "1.5",
+    fontFamily: "Nunito Sans, sans-serif",
+  },
 };
 
 const Button = defineStyleConfig({
   baseStyle: {
     textTransform: "uppercase",
+    borderRadius: "0",
+  },
+  variants: {
+    solid: {
+      color: "white",
+      backgroundColor: "black",
+      "&:hover": {
+        backgroundColor: "blackAlpha.800",
+      },
+    },
   },
   sizes: { lg: { fontSize: "23px", height: "73px" } },
   defaultProps: {
@@ -78,9 +75,21 @@ const Input = defineStyleConfig({
   },
 });
 
+const Container = defineStyleConfig({
+  sizes: {
+    custom: defineStyle({
+      maxW: "1200px",
+      px: { base: "4", lg: "0" },
+    }),
+  },
+  defaultProps: {
+    size: "custom",
+  },
+});
+
 export const theme = extendTheme({
   colors,
   styles,
   textStyles,
-  components: { Button, Input },
+  components: { Button, Input, Container },
 });

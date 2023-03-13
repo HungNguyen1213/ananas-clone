@@ -15,7 +15,32 @@ export function HotNews() {
   const navigationPrevRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <Flex justify="center" align="center" height="50px" bg="blackAlpha.100">
+    <Flex
+      justify="center"
+      align="center"
+      height="50px"
+      bg="blackAlpha.100"
+      sx={{
+        "& .swiper": {
+          width: "50%",
+          height: "100%",
+          margin: "0 !important",
+        },
+        "& .swiper-slide": {
+          textAlign: "center",
+          fontSize: "16px",
+          fontWeight: "600",
+          textTransform: "uppercase",
+          fontFamily: "Nunito Sans, sans-serif",
+        },
+        "& .swiper-slide img": {
+          display: "block",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        },
+      }}
+    >
       <IconButton
         aria-label="Prev slider"
         height="100%"
@@ -44,7 +69,6 @@ export function HotNews() {
         }}
         loop
         speed={600}
-        className="hot-news_swiper"
       >
         {HOT_NEWS.map((item) => (
           <SwiperSlide key={item.label}>

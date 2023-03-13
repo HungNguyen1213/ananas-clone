@@ -1,8 +1,15 @@
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 import { useCategoryStore } from "@/hooks";
 import { Category } from "@/models";
+
+import menuMen from "@/images/menu_nam.jpg";
+import menuWomen from "@/images/menu_nu.jpg";
+import menuAccessory from "@/images/menu_phu-kien.jpg";
+import menuSaleOff from "@/images/menu_sale-off.jpg";
 
 interface NavDesktopPanelProps {
   href: string;
@@ -41,10 +48,13 @@ function CategoryPanel() {
     (category) => category?.children?.length
   );
   return (
-    <Flex justify="center">
-      {categoryGroup.map((category) => (
-        <CategoryPanelItem key={category.id} category={category} />
-      ))}
+    <Flex direction={"column"} align="center">
+      <Flex justify="center">
+        {categoryGroup.map((category) => (
+          <CategoryPanelItem key={category.id} category={category} />
+        ))}
+      </Flex>
+      <ComingSoonLink />
     </Flex>
   );
 }
@@ -62,7 +72,14 @@ function CategoryPanelItem({ category }: CategoryPanelItem) {
       borderRight="2px dashed #a5a5a5"
       _last={{ borderRight: "none" }}
     >
-      <Text color={"white"} fontFamily="Ubuntu, sans-serif" mb={5}>
+      <Text
+        color={"white"}
+        fontFamily="Ubuntu, sans-serif"
+        fontSize={"23px"}
+        fontWeight={"bold"}
+        textTransform={"uppercase"}
+        mb={5}
+      >
         {category.name}
       </Text>
       {category?.children?.map((item) => (
@@ -81,5 +98,80 @@ function CategoryPanelItem({ category }: CategoryPanelItem) {
 }
 
 function ProductPanel() {
-  return <Box>ProductPanel</Box>;
+  const items = [
+    { label: "Cho nam", image: menuMen, href: "/product-list/men" },
+    { label: "Cho nữ", image: menuWomen, href: "/product-list/women" },
+    {
+      label: "Outlet sale",
+      image: menuSaleOff,
+      href: "/promotion/clearance-sale",
+    },
+    {
+      label: "Thời trang & phụ kiện",
+      image: menuAccessory,
+      href: "/product-list/accessories",
+    },
+  ];
+  return (
+    <Flex direction={"column"} align="center">
+      <Flex justify="center" gap={10} pt={8}>
+        {items.map((item) => (
+          <Link key={item.href} href={item.href}>
+            <Box
+              width="290px"
+              opacity={"0.5"}
+              transition="opacity 0.5s ease-in-out"
+              _hover={{ opacity: "1" }}
+              textAlign="center"
+            >
+              <Box width="100%" pt="100%" position="relative">
+                <Box
+                  width="100%"
+                  height="100%"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  sx={{ "& img": { objectFit: "cover" } }}
+                >
+                  <Image src={item.image} alt="Menu" fill />
+                </Box>
+              </Box>
+
+              <Box
+                p="16px 0px 40px 0px"
+                _hover={{ color: "primary" }}
+                fontSize="23px"
+                textTransform={"uppercase"}
+                fontWeight="bold"
+              >
+                {item.label}
+              </Box>
+            </Box>
+          </Link>
+        ))}
+      </Flex>
+      <ComingSoonLink />
+    </Flex>
+  );
+}
+
+function ComingSoonLink() {
+  return (
+    <Box mt={5} mb={10}>
+      <Link href="/coming-soon" passHref>
+        <Box
+          fontSize={"md"}
+          fontFamily="Nunito Sans, sans-serif"
+          fontStyle="italic"
+          color="#808080"
+        >
+          MỌI NGƯỜI THƯỜNG GỌI CHÚNG TÔI LÀ
+          <Box sx={{ px: "1", color: "white", display: "inline-block" }}>
+            DỨA
+          </Box>
+          !
+        </Box>
+      </Link>
+    </Box>
+  );
 }

@@ -38,34 +38,38 @@ export function NavRouteItem({
   return (
     <>
       {isLink ? (
-        <Link href={href} passHref>
-          <ChakraLink
-            as="div"
-            fontSize="23px"
-            textTransform="uppercase"
-            fontWeight="bold"
-            _hover={{
-              color: "primary",
-              "& div:last-child": { visibility: "visible" },
-            }}
-            role="group"
-            px={4}
-            lineHeight="90px"
-          >
-            <HStack>
-              <Text>{label}</Text>
-              {rightIcon && (
-                <Icon
-                  color="black"
-                  boxSize={5}
-                  as={rightIcon}
-                  _groupHover={{ color: "primary" }}
-                />
-              )}
-            </HStack>
-            {rightIcon && <NavDesktopPanel href={href} />}
-          </ChakraLink>
-        </Link>
+        <Box _hover={{ "& div:last-child": { visibility: "visible" } }}>
+          <Link href={href} passHref>
+            <ChakraLink
+              as="div"
+              fontSize="23px"
+              textTransform="uppercase"
+              fontWeight="bold"
+              _hover={{
+                color: "primary",
+              }}
+              role="group"
+              px={4}
+              lineHeight="90px"
+            >
+              <HStack>
+                <Text>{label}</Text>
+                {rightIcon && (
+                  <Icon
+                    color="black"
+                    boxSize={5}
+                    as={rightIcon}
+                    _groupHover={{
+                      color: "primary",
+                      transform: "rotate(180deg)",
+                    }}
+                  />
+                )}
+              </HStack>
+            </ChakraLink>
+          </Link>
+          {rightIcon && <NavDesktopPanel href={href} />}
+        </Box>
       ) : (
         <Box>
           <ChakraLink

@@ -1,26 +1,23 @@
 import * as React from "react";
 import {
-  AccordionItem,
-  Box,
+  AccordionItem as ChakraAccordionItem,
   AccordionButton,
   AccordionPanel,
 } from "@chakra-ui/react";
+import { NavRouteItem } from "../navbar/nav-item";
 import { RiArrowDownSLine } from "react-icons/ri";
 
-import { NavRouteItem } from "@/components/navbar/nav-item";
-import { Category } from "@/models";
-import { SidebarItem } from "./sidebar-item";
-
-interface SidebarGroupProps {
-  category: Category;
+interface AccordionItemProps {
+  title: string;
+  children: React.ReactNode;
 }
 
-export function SidebarGroup({ category }: SidebarGroupProps) {
+export function AccordionItem({ title, children }: AccordionItemProps) {
   return (
-    <AccordionItem
+    <ChakraAccordionItem
       py={6}
       borderStyle="dashed"
-      borderBottomWidth={3}
+      borderBottomWidth={"2px"}
       borderTopWidth="0"
       _last={{ borderBottomWidth: "0" }}
     >
@@ -42,18 +39,16 @@ export function SidebarGroup({ category }: SidebarGroupProps) {
             <NavRouteItem
               route={{
                 href: "#",
-                label: category.name,
+                label: title,
                 rightIcon: RiArrowDownSLine,
               }}
             />
           </AccordionButton>
           <AccordionPanel pb={4} px={0} pt={0}>
-            {category?.children?.map((item) => (
-              <SidebarItem key={item.id} subCategory={item} />
-            ))}
+            {children}
           </AccordionPanel>
         </>
       )}
-    </AccordionItem>
+    </ChakraAccordionItem>
   );
 }

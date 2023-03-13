@@ -15,7 +15,7 @@ export function NavDesktop() {
               orientation="vertical"
               borderLeftWidth="2px"
               borderColor="#e3e2e2"
-              m={0}
+              mx={1}
               _last={{ display: "none" }}
               height="23px"
             />
