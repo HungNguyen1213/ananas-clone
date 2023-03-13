@@ -14,7 +14,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   return (
     <Container py={8}>
       <Flex gap={16}>
-        <SliderImage images={product.assets} />
+        <SliderImage images={product?.assets} />
         <Box width="50%">
           <ProductInfo product={product} />
         </Box>
