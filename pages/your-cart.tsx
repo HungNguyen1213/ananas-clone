@@ -5,7 +5,6 @@ import { useCartStore } from "@/hooks";
 
 export default function YourCart() {
   const { cart, refreshCart } = useCartStore();
-  console.log({ path: "your-cart", cart });
   return (
     <Box>
       Cart
