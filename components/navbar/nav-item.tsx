@@ -4,6 +4,7 @@ import React from "react";
 
 import { NavItem } from "@/models";
 import { NavDesktopPanel } from "./nav-desktop-panel";
+import { useCartStore } from "@/hooks";
 
 interface NavControlPanelProps {
   route: NavItem;
@@ -12,6 +13,8 @@ interface NavControlPanelProps {
 export function NavControlPanel({
   route: { label, href, leftIcon },
 }: NavControlPanelProps) {
+  const { cart } = useCartStore();
+
   return (
     <Link href={href} passHref>
       <ChakraLink
@@ -23,7 +26,9 @@ export function NavControlPanel({
       >
         <HStack>
           {leftIcon && <Icon color="white" boxSize={4} as={leftIcon} />}
-          <Text>{label}</Text>
+          <Text>{`${label}${
+            href === "/your-cart" ? ` (${cart?.total_items || 0})` : ""
+          }`}</Text>
         </HStack>
       </ChakraLink>
     </Link>

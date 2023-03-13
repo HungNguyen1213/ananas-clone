@@ -13,6 +13,8 @@ import parse from "html-react-parser";
 import Image from "next/image";
 
 import { AccordionItem } from "../common";
+import { useCartStore } from "@/hooks";
+
 import sizeChart from "@/images/size-chart.jpg";
 
 export interface ProductInfoProps {
@@ -21,6 +23,8 @@ export interface ProductInfoProps {
 }
 
 export function ProductInfo({ product, children }: ProductInfoProps) {
+  const { addToCart, isLoading } = useCartStore();
+
   return (
     <Box>
       <Text textStyle={"h1"} mb="30px">
@@ -43,7 +47,7 @@ export function ProductInfo({ product, children }: ProductInfoProps) {
       />
       {product?.description && (
         <>
-          <Text textStyle={"p"} mb="30px">
+          <Text as="div" textStyle={"p"} mb="30px">
             {parse(product.description)}
           </Text>
           <Divider
@@ -56,7 +60,15 @@ export function ProductInfo({ product, children }: ProductInfoProps) {
       )}
       {children}
       <Box mb={5}>
-        <Button width="100%">Thêm vào giỏ hàng</Button>
+        <Button
+          width="100%"
+          onClick={() => addToCart(product.id, 1)}
+          isLoading={isLoading}
+          loadingText="Thêm vào giỏ hàng"
+          spinnerPlacement="end"
+        >
+          Thêm vào giỏ hàng
+        </Button>
       </Box>
       <Box>
         <Button width="100%" bg="primary" _hover={{ bg: "orange.600" }}>

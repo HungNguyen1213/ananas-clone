@@ -1,16 +1,24 @@
 import { Box, HStack } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Image from "next/image";
+import { useEffect } from "react";
 
 import { Input } from "@/components";
 import { NavControlPanel } from "./nav-item";
 import { HotNews } from "./hot-news";
 import { NavDesktop } from "./nav-desktop";
 import { CONTROL_ROUTES } from "@/configs";
+import { useCartStore } from "@/hooks";
 
 import logo from "@/images/logo.svg";
 
 export default function Navbar() {
+  const { fetchCart } = useCartStore();
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
+
   return (
     <Box mb="8">
       <HStack

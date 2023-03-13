@@ -16,7 +16,6 @@ export function SliderImage({ images }: SliderImageProps) {
     images?.[0]?.url || noImage
   );
 
-  console.log({ images });
   return (
     <Box width="50%">
       <Box width="100%" position="relative" pt="100%" mb={5}>
@@ -61,6 +60,7 @@ export function SliderImage({ images }: SliderImageProps) {
         {images?.length > 0 && (
           <Swiper
             slidesPerView={4}
+            slidesPerGroup={4}
             spaceBetween={2}
             navigation={true}
             modules={[Navigation]}

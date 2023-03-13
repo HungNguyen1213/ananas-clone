@@ -49,7 +49,7 @@ const Button = defineStyleConfig({
     solid: {
       color: "white",
       backgroundColor: "black",
-      "&:hover": {
+      "&:hover, &:disabled, &:hover:disabled": {
         backgroundColor: "blackAlpha.800",
       },
     },
