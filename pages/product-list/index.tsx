@@ -1,16 +1,17 @@
 import { GetStaticProps } from "next";
 import { Product } from "@chec/commerce.js/types/product";
 
-import { ProductSummary } from "@/models";
+import { Category, ProductSummary } from "@/models";
 import { commerce } from "@/libs";
 import { ProductPanel } from "@/components";
 
 interface ProductListProps {
   productList: ProductSummary[];
+  categoryList: Category[];
 }
 
-const ProductList = ({ productList }: ProductListProps) => {
-  return <ProductPanel productList={productList} />;
+const ProductList = ({ productList, categoryList }: ProductListProps) => {
+  return <ProductPanel productList={productList} categoryList={categoryList} />;
 };
 
 export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
@@ -24,7 +25,9 @@ export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
       permalink: product.permalink,
     })) || [];
 
-  return { props: { productList } };
+  const { data: categoryList } = await commerce.categories.list();
+
+  return { props: { productList, categoryList } };
 };
 
 export default ProductList;

@@ -27,19 +27,24 @@ export default function Navbar() {
         ))}
       </HStack>
       <HStack
-        height={{ base: "20vw", lg: "90px" }}
+        height={{ base: "20vw", lg: "112px" }}
         maxHeight={{ base: "135px" }}
         px={16}
-        mt={6}
-        mb={5}
+        pt={6}
         justify="space-between"
         align={{ base: "center", lg: "flex-end" }}
+        position="relative"
       >
-        <Box width={{ base: 7, lg: 14 }} height="100%" position="relative">
+        <Box
+          width={{ base: 7, lg: 14 }}
+          height="100%"
+          mb={5}
+          position="relative"
+        >
           <Image src={logo} alt="Logo" fill />
         </Box>
         <NavDesktop />
-        <Box pb={3}>
+        <Box pb={"30px"}>
           <Input
             name="search"
             leftIcon={<SearchIcon boxSize={5} color="gray.500" />}

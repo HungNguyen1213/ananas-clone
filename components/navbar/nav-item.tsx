@@ -1,7 +1,9 @@
-import { NavItem } from "@/models";
 import { HStack, Link as ChakraLink, Text, Icon, Box } from "@chakra-ui/react";
 import Link from "next/link";
-import * as React from "react";
+import React from "react";
+
+import { NavItem } from "@/models";
+import { NavDesktopPanel } from "./nav-desktop-panel";
 
 interface NavControlPanelProps {
   route: NavItem;
@@ -32,6 +34,7 @@ export function NavRouteItem({
   route: { label, href, rightIcon },
 }: NavControlPanelProps) {
   const isLink = href !== "#";
+
   return (
     <>
       {isLink ? (
@@ -41,9 +44,13 @@ export function NavRouteItem({
             fontSize="23px"
             textTransform="uppercase"
             fontWeight="bold"
-            _hover={{ color: "primary" }}
+            _hover={{
+              color: "primary",
+              "& div:last-child": { visibility: "visible" },
+            }}
             role="group"
-            px={3}
+            px={4}
+            lineHeight="90px"
           >
             <HStack>
               <Text>{label}</Text>
@@ -56,6 +63,7 @@ export function NavRouteItem({
                 />
               )}
             </HStack>
+            {rightIcon && <NavDesktopPanel href={href} />}
           </ChakraLink>
         </Link>
       ) : (

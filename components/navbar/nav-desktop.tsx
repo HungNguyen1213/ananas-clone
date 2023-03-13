@@ -1,4 +1,4 @@
-import { Box, Divider, HStack } from "@chakra-ui/react";
+import { Box, Divider, Flex } from "@chakra-ui/react";
 import * as React from "react";
 
 import { NavRouteItem } from "./nav-item";
@@ -7,7 +7,7 @@ import { MAIN_ROUTES } from "@/configs";
 export function NavDesktop() {
   return (
     <Box>
-      <HStack align="center" justify="center" mb={2}>
+      <Flex align="center" justify="center">
         {MAIN_ROUTES.map((route) => (
           <React.Fragment key={route.href}>
             <NavRouteItem route={route} />
@@ -21,7 +21,7 @@ export function NavDesktop() {
             />
           </React.Fragment>
         ))}
-      </HStack>
+      </Flex>
     </Box>
   );
 }
