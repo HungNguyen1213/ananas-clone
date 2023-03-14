@@ -5,7 +5,9 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { commerce } from "@/libs";
-import { ProductInfo, SliderImage } from "@/components";
+import { ProductInfo, Seo, SliderImage } from "@/components";
+import { SeoData } from "@/models";
+import { DEFAULT_DESCRIPTION_PRODUCT_DETAILS } from "@/configs";
 
 interface ProductDetailsProps {
   product: Product;
@@ -16,12 +18,20 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   const isLoading = router.isFallback;
 
+  const seoData: SeoData = {
+    title: product?.name,
+    description: product?.description || DEFAULT_DESCRIPTION_PRODUCT_DETAILS,
+    thumbnailUrl: product?.assets?.[0]?.url,
+    url: "https://ananas-clone.vercel.app/",
+  };
+
   return (
     <>
       {isLoading ? (
         "Loading..."
       ) : (
         <Container>
+          <Seo data={seoData} />
           <Flex gap={16}>
             <Box width="calc(calc(100% - 64px) / 12 * 7)">
               <SliderImage images={product.assets} />
