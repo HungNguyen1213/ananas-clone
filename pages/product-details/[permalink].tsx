@@ -22,7 +22,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     title: product?.name,
     description: product?.description || DEFAULT_DESCRIPTION_PRODUCT_DETAILS,
     thumbnailUrl: product?.assets?.[0]?.url,
-    url: "https://ananas-clone.vercel.app/",
+    url: `https://ananas-clone.vercel.app/product-details/${product?.permalink}`,
   };
 
   return (

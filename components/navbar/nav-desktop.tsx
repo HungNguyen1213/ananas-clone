@@ -1,10 +1,17 @@
 import { Box, Divider, Flex } from "@chakra-ui/react";
-import * as React from "react";
+import React, { useEffect } from "react";
 
 import { NavRouteItem } from "./nav-item";
 import { MAIN_ROUTES } from "@/configs";
+import { useCategoryStore } from "@/hooks";
 
 export function NavDesktop() {
+  const { fetchCategoryList } = useCategoryStore();
+
+  useEffect(() => {
+    fetchCategoryList();
+  }, [fetchCategoryList]);
+
   return (
     <Box>
       <Flex align="center" justify="center">

@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,12 +12,6 @@ interface NavDesktopPanelProps {
 }
 
 export function NavDesktopPanel({ href }: NavDesktopPanelProps) {
-  const { fetchCategoryList } = useCategoryStore();
-
-  useEffect(() => {
-    fetchCategoryList();
-  }, [fetchCategoryList]);
-
   return (
     <Box
       position="absolute"
@@ -39,10 +33,14 @@ export function NavDesktopPanel({ href }: NavDesktopPanelProps) {
 }
 
 function CategoryPanel() {
-  const { categoryList } = useCategoryStore();
+  const { categoryList, isLoading } = useCategoryStore();
+
+  if (isLoading) return null;
+
   const categoryGroup = categoryList?.filter(
     (category) => category?.children?.length
   );
+
   return (
     <Flex direction={"column"} align="center">
       <Flex justify="center">
