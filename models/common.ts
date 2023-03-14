@@ -1,5 +1,12 @@
 import { StaticImageData } from "next/image";
 
+export interface SeoData {
+  title: string;
+  description: string;
+  url: string;
+  thumbnailUrl: string;
+}
+
 export interface NavItem {
   label: string;
   href: string;
