@@ -27,7 +27,7 @@ export function ProductInfo({ product, children }: ProductInfoProps) {
 
   return (
     <Box>
-      <Text textStyle={"h1"} mb="30px">
+      <Text textStyle={"h1"} as="h1" mb="30px">
         {product.name}
       </Text>
       <Text textStyle={"p"} mb="30px">

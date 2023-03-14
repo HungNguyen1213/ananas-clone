@@ -80,6 +80,7 @@ const Container = defineStyleConfig({
     custom: defineStyle({
       maxW: "1200px",
       px: { base: "4", lg: "0" },
+      py: 8,
     }),
   },
   defaultProps: {

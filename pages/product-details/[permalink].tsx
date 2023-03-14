@@ -21,10 +21,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {isLoading ? (
         "Loading..."
       ) : (
-        <Container py={8}>
+        <Container>
           <Flex gap={16}>
-            <SliderImage images={product.assets} />
-            <Box width="50%">
+            <Box width="calc(calc(100% - 64px) / 12 * 7)">
+              <SliderImage images={product.assets} />
+            </Box>
+            <Box width="calc(calc(100% - 64px) / 12 * 5)">
               <ProductInfo product={product} />
             </Box>
           </Flex>

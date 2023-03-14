@@ -5,11 +5,7 @@ import Link from "next/link";
 
 import { useCategoryStore } from "@/hooks";
 import { Category } from "@/models";
-
-import menuMen from "@/images/menu_nam.jpg";
-import menuWomen from "@/images/menu_nu.jpg";
-import menuAccessory from "@/images/menu_phu-kien.jpg";
-import menuSaleOff from "@/images/menu_sale-off.jpg";
+import { PRODUCT_NAV_PANEL_ROUTE } from "@/configs";
 
 interface NavDesktopPanelProps {
   href: string;
@@ -37,7 +33,7 @@ export function NavDesktopPanel({ href }: NavDesktopPanelProps) {
       cursor="default"
       lineHeight={"1.15"}
     >
-      {href === "/product-list" ? <ProductPanel /> : <CategoryPanel />}
+      {href === "/product-list" ? <MainPanel /> : <CategoryPanel />}
     </Box>
   );
 }
@@ -97,25 +93,11 @@ function CategoryPanelItem({ category }: CategoryPanelItem) {
   );
 }
 
-function ProductPanel() {
-  const items = [
-    { label: "Cho nam", image: menuMen, href: "/product-list/men" },
-    { label: "Cho nữ", image: menuWomen, href: "/product-list/women" },
-    {
-      label: "Outlet sale",
-      image: menuSaleOff,
-      href: "/promotion/clearance-sale",
-    },
-    {
-      label: "Thời trang & phụ kiện",
-      image: menuAccessory,
-      href: "/product-list/accessories",
-    },
-  ];
+function MainPanel() {
   return (
     <Flex direction={"column"} align="center">
       <Flex justify="center" gap={10} pt={8}>
-        {items.map((item) => (
+        {PRODUCT_NAV_PANEL_ROUTE.map((item) => (
           <Link key={item.href} href={item.href}>
             <Box
               width="290px"

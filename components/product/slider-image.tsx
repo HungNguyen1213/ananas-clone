@@ -17,7 +17,7 @@ export function SliderImage({ images }: SliderImageProps) {
   );
 
   return (
-    <Box width="50%">
+    <Box>
       <Box width="100%" position="relative" pt="100%" mb={5}>
         <Box
           width="100%"

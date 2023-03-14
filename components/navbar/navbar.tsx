@@ -1,6 +1,7 @@
 import { Box, HStack } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 
 import { Input } from "@/components";
@@ -20,7 +21,7 @@ export default function Navbar() {
   }, [fetchCart]);
 
   return (
-    <Box mb="8">
+    <Box>
       <HStack
         bg="blackAlpha.800"
         justify="flex-end"
@@ -49,7 +50,9 @@ export default function Navbar() {
           mb={5}
           position="relative"
         >
-          <Image src={logo} alt="Logo" fill />
+          <Link href="/">
+            <Image src={logo} alt="Logo" fill />
+          </Link>
         </Box>
         <NavDesktop />
         <Box pb={"30px"}>
