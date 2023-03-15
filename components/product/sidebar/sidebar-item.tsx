@@ -27,19 +27,15 @@ export const SidebarItem = memo(function SidebarItem({
   }, [router.query?.attribute, subCategory.slug]);
 
   const handleClickItem = useCallback(() => {
-    router.push(
-      {
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          attribute: !isSelected
-            ? [...attribute, subCategory.slug]
-            : [...attribute.filter((attr) => attr !== subCategory.slug)],
-        },
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        attribute: !isSelected
+          ? [...attribute, subCategory.slug]
+          : [...attribute.filter((attr) => attr !== subCategory.slug)],
       },
-      undefined,
-      { shallow: true }
-    );
+    });
   }, [isSelected, attribute, router, subCategory.slug]);
 
   return (

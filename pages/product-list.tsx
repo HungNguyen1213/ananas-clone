@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { Product } from "@chec/commerce.js/types/product";
 import { Box } from "@chakra-ui/react";
 
-import { Category, ProductSummary, SeoData } from "@/models";
+import { ProductSummary, SeoData } from "@/models";
 import { commerce } from "@/libs";
 import { ProductPanel, Seo } from "@/components";
 
@@ -49,6 +49,8 @@ export const getServerSideProps: GetServerSideProps<ProductListProps> = async ({
       price: product.price,
       permalink: product.permalink,
     })) || [];
+
+  console.log({ attribute, productList });
 
   return { props: { productList } };
 };
