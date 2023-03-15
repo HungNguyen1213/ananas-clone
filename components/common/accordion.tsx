@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { memo } from "react";
 import {
   AccordionItem as ChakraAccordionItem,
   AccordionButton,
@@ -12,7 +12,10 @@ interface AccordionItemProps {
   children: React.ReactNode;
 }
 
-export function AccordionItem({ title, children }: AccordionItemProps) {
+export const AccordionItem = memo(function AccordionItem({
+  title,
+  children,
+}: AccordionItemProps) {
   return (
     <ChakraAccordionItem
       py={6}
@@ -51,4 +54,4 @@ export function AccordionItem({ title, children }: AccordionItemProps) {
       )}
     </ChakraAccordionItem>
   );
-}
+});

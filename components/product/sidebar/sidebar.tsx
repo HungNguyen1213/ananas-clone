@@ -1,23 +1,23 @@
 import { Accordion, Box } from "@chakra-ui/react";
 import React, { memo } from "react";
 
-import { Category } from "@/models";
 import { SidebarItem } from "./sidebar-item";
 import { AccordionItem } from "@/components";
+import { useCategoryStore } from "@/hooks";
 
-interface SidebarProps {
-  categoryList: Category[];
-}
+export const Sidebar = memo(function Sidebar() {
+  const { categoryList } = useCategoryStore();
 
-export const Sidebar = memo(function Sidebar({ categoryList }: SidebarProps) {
-  const sidebarGroup = categoryList?.filter(
+  if (categoryList.length === 0) return null;
+
+  const sidebarGroup = categoryList.filter(
     (category) => category?.children?.length
   );
 
   return (
     <Box>
       <Accordion
-        defaultIndex={sidebarGroup?.map((_, index) => index) || []}
+        defaultIndex={sidebarGroup.map((_, index) => index)}
         allowMultiple
       >
         {sidebarGroup?.map((category) => (

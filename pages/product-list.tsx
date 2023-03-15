@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { Product } from "@chec/commerce.js/types/product";
 import { Box } from "@chakra-ui/react";
 
@@ -8,10 +8,9 @@ import { ProductPanel, Seo } from "@/components";
 
 interface ProductListProps {
   productList: ProductSummary[];
-  categoryList: Category[];
 }
 
-const ProductList = ({ productList, categoryList }: ProductListProps) => {
+const ProductList = ({ productList }: ProductListProps) => {
   const seoData: SeoData = {
     title: "Sản Phẩm – Ananas",
     description:
@@ -23,13 +22,25 @@ const ProductList = ({ productList, categoryList }: ProductListProps) => {
   return (
     <Box>
       <Seo data={seoData} />
-      <ProductPanel productList={productList} categoryList={categoryList} />
+      <ProductPanel productList={productList} />
     </Box>
   );
 };
 
-export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
-  const { data: resProducts } = await commerce.products.list();
+export const getServerSideProps: GetServerSideProps<ProductListProps> = async ({
+  res,
+  query,
+}) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
+  const attribute = query?.attribute;
+
+  const { data: resProducts } = await commerce.products.list({
+    category_slug: attribute,
+  });
   const productList: ProductSummary[] =
     resProducts?.map((product: Product) => ({
       id: product.id,
@@ -39,9 +50,7 @@ export const getStaticProps: GetStaticProps<ProductListProps> = async () => {
       permalink: product.permalink,
     })) || [];
 
-  const { data: categoryList } = await commerce.categories.list();
-
-  return { props: { productList, categoryList } };
+  return { props: { productList } };
 };
 
 export default ProductList;

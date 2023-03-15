@@ -52,12 +52,12 @@ export const MAIN_ROUTES: NavItem[] = [
   },
   {
     label: "Nam",
-    href: "/product-list/men",
+    href: "/product-list?attribute=men",
     rightIcon: RiArrowDownSLine,
   },
   {
     label: "Nữ",
-    href: "/product-list/women",
+    href: "/product-list?attribute=women",
     rightIcon: RiArrowDownSLine,
   },
   {
@@ -81,8 +81,8 @@ export const HOT_NEWS: NavItem[] = [
 ];
 
 export const PRODUCT_NAV_PANEL_ROUTE: BannerItem[] = [
-  { label: "Cho nam", image: menuMen, href: "/product-list/men" },
-  { label: "Cho nữ", image: menuWomen, href: "/product-list/women" },
+  { label: "Cho nam", image: menuMen, href: "/product-list?attribute=men" },
+  { label: "Cho nữ", image: menuWomen, href: "/product-list?attribute=women" },
   {
     label: "Outlet sale",
     image: menuSaleOff,
