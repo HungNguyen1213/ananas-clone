@@ -1,18 +1,43 @@
-import { Container, HStack, Box } from "@chakra-ui/react";
-import React from "react";
+import { Container, HStack, Box, Spinner } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { ProductList } from "./product-list";
-import { ProductSummary } from "@/models";
 import { Sidebar } from "./sidebar";
+import { ProductSummary } from "@/models";
+import { commerce } from "@/libs";
 
-export interface ProductPanelProps {
-  productList: ProductSummary[];
-}
+export function ProductPanel() {
+  const router = useRouter();
 
-export function ProductPanel({ productList }: ProductPanelProps) {
+  const attribute = router.query?.attribute;
+
+  const [productList, setProductList] = useState<ProductSummary[]>([]);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const { data: resProducts } = await commerce.products.list({
+        category_slug: attribute,
+      });
+      const products: ProductSummary[] =
+        resProducts?.map((product) => ({
+          id: product.id,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          permalink: product.permalink,
+        })) || [];
+      setProductList(products);
+      setIsLoading(false);
+    })();
+  }, [attribute]);
+
   return (
-    <Container>
+    <Container opacity={isLoading ? "0.7" : 1}>
       <HStack gap={4} align="flex-start">
         <Box w="25%" flexShrink={0}>
           <Sidebar />
@@ -26,7 +51,13 @@ export function ProductPanel({ productList }: ProductPanelProps) {
           >
             <Image src="/product-list.jpg" alt="Banner" fill />
           </Box>
-          <ProductList productList={productList} />
+          {isLoading ? (
+            <Box textAlign={"center"} pt={10}>
+              <Spinner size="xl" color="primary" />
+            </Box>
+          ) : (
+            <ProductList productList={productList} />
+          )}
         </Box>
       </HStack>
     </Container>

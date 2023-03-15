@@ -1,16 +1,9 @@
-import { GetServerSideProps } from "next";
-import { Product } from "@chec/commerce.js/types/product";
 import { Box } from "@chakra-ui/react";
 
-import { ProductSummary, SeoData } from "@/models";
-import { commerce } from "@/libs";
+import { SeoData } from "@/models";
 import { ProductPanel, Seo } from "@/components";
 
-interface ProductListProps {
-  productList: ProductSummary[];
-}
-
-const ProductList = ({ productList }: ProductListProps) => {
+const ProductList = () => {
   const seoData: SeoData = {
     title: "Sản Phẩm – Ananas",
     description:
@@ -22,37 +15,9 @@ const ProductList = ({ productList }: ProductListProps) => {
   return (
     <Box>
       <Seo data={seoData} />
-      <ProductPanel productList={productList} />
+      <ProductPanel />
     </Box>
   );
-};
-
-export const getServerSideProps: GetServerSideProps<ProductListProps> = async ({
-  res,
-  query,
-}) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
-  const attribute = query?.attribute;
-
-  const { data: resProducts } = await commerce.products.list({
-    category_slug: attribute,
-  });
-  const productList: ProductSummary[] =
-    resProducts?.map((product: Product) => ({
-      id: product.id,
-      name: product.name,
-      image: product.image,
-      price: product.price,
-      permalink: product.permalink,
-    })) || [];
-
-  console.log({ attribute, productList });
-
-  return { props: { productList } };
 };
 
 export default ProductList;
