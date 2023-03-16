@@ -1,2 +1,1 @@
-export * from "./useCategoryStore";
-export * from "./useCartStore";
+export * from "./store";

@@ -3,15 +3,15 @@ import React, { memo } from "react";
 
 import { SidebarItem } from "./sidebar-item";
 import { AccordionItem } from "@/components";
-import { useCategoryStore } from "@/hooks";
+import { useAttributeStore } from "@/hooks";
 
 export const Sidebar = memo(function Sidebar() {
-  const { categoryList } = useCategoryStore();
+  const { attributeList } = useAttributeStore();
 
-  if (categoryList.length === 0) return null;
+  if (attributeList.length === 0) return null;
 
-  const sidebarGroup = categoryList.filter(
-    (category) => category?.children?.length
+  const sidebarGroup = attributeList.filter(
+    (attribute) => attribute.options.length
   );
 
   return (
@@ -20,10 +20,10 @@ export const Sidebar = memo(function Sidebar() {
         defaultIndex={sidebarGroup.map((_, index) => index)}
         allowMultiple
       >
-        {sidebarGroup?.map((category) => (
-          <AccordionItem key={category.id} title={category.name}>
-            {category?.children?.map((item) => (
-              <SidebarItem key={item.id} subCategory={item} />
+        {sidebarGroup.map((attribute) => (
+          <AccordionItem key={attribute.id} title={attribute.name}>
+            {attribute.options.map((item) => (
+              <SidebarItem key={item.id} option={item} />
             ))}
           </AccordionItem>
         ))}

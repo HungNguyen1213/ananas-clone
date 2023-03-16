@@ -3,8 +3,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { useCategoryStore } from "@/hooks";
-import { Category } from "@/models";
+import { useAttributeStore } from "@/hooks";
+import { Attribute } from "@/models";
 import { PRODUCT_NAV_PANEL_ROUTE } from "@/configs";
 
 interface NavDesktopPanelProps {
@@ -27,25 +27,27 @@ export function NavDesktopPanel({ href }: NavDesktopPanelProps) {
       cursor="default"
       lineHeight={"1.15"}
     >
-      {href === "/product-list" ? <MainPanel /> : <CategoryPanel />}
+      {href === "/product-list" ? <MainPanel /> : <AttributePanel />}
     </Box>
   );
 }
 
-function CategoryPanel() {
-  const { categoryList, isLoading } = useCategoryStore();
+function AttributePanel() {
+  const { attributeList, isLoading } = useAttributeStore();
 
   if (isLoading) return null;
 
-  const categoryGroup = categoryList?.filter(
-    (category) => category?.children?.length
+  const attributeGroup = attributeList?.filter(
+    (attribute) => attribute.options.length
   );
+
+  console.log({ attributeList });
 
   return (
     <Flex direction={"column"} align="center">
       <Flex justify="center">
-        {categoryGroup.map((category) => (
-          <CategoryPanelItem key={category.id} category={category} />
+        {attributeGroup.map((attribute) => (
+          <AttributePanelItem key={attribute.id} attribute={attribute} />
         ))}
       </Flex>
       <ComingSoonLink />
@@ -53,11 +55,11 @@ function CategoryPanel() {
   );
 }
 
-interface CategoryPanelItem {
-  category: Category;
+interface AttributePanelItem {
+  attribute: Attribute;
 }
 
-function CategoryPanelItem({ category }: CategoryPanelItem) {
+function AttributePanelItem({ attribute }: AttributePanelItem) {
   return (
     <Box
       m={"30px 20px 40px"}
@@ -74,9 +76,9 @@ function CategoryPanelItem({ category }: CategoryPanelItem) {
         textTransform={"uppercase"}
         mb={5}
       >
-        {category.name}
+        {attribute.name}
       </Text>
-      {category?.children?.map((item) => (
+      {attribute.options.map((item) => (
         <Text
           mb={3}
           fontSize={"md"}
@@ -84,7 +86,7 @@ function CategoryPanelItem({ category }: CategoryPanelItem) {
           key={item.id}
           _hover={{ color: "primary" }}
         >
-          {item.name}
+          {item.label}
         </Text>
       ))}
     </Box>

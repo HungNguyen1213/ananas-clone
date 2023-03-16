@@ -19,20 +19,27 @@ export function ProductPanel() {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(true);
-      const { data: resProducts } = await commerce.products.list({
-        category_slug: attribute,
-      });
-      const products: ProductSummary[] =
-        resProducts?.map((product) => ({
-          id: product.id,
-          name: product.name,
-          image: product.image,
-          price: product.price,
-          permalink: product.permalink,
-        })) || [];
-      setProductList(products);
-      setIsLoading(false);
+      try {
+        console.log({ attribute });
+        setIsLoading(true);
+        const { data: resProducts } = await commerce.products.list({
+          attributes: { attr_VNplJa1EaYwL60: attribute },
+        });
+        const products: ProductSummary[] =
+          resProducts?.map((product) => ({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            price: product.price,
+            permalink: product.permalink,
+          })) || [];
+        setProductList(products);
+      } catch (error) {
+        console.log(error);
+        setProductList([]);
+      } finally {
+        setIsLoading(false);
+      }
     })();
   }, [attribute]);
 

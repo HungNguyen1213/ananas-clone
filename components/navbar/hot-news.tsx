@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Swiper as SwiperType, Navigation } from "swiper";
+import { Swiper as SwiperType, Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Flex, IconButton } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
@@ -59,7 +59,7 @@ export function HotNews() {
         Prev
       </IconButton>
       <Swiper
-        modules={[Navigation]}
+        modules={[Navigation, Autoplay]}
         navigation={{
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
@@ -69,6 +69,7 @@ export function HotNews() {
         }}
         loop
         speed={600}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
       >
         {HOT_NEWS.map((item) => (
           <SwiperSlide key={item.label}>

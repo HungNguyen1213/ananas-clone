@@ -3,14 +3,14 @@ import React, { memo, useMemo, useCallback } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 
-import { Subcategory } from "@/models";
+import { AttributeOption } from "@/models";
 
 export interface SidebarItemProps {
-  subCategory: Subcategory;
+  option: AttributeOption;
 }
 
 export const SidebarItem = memo(function SidebarItem({
-  subCategory,
+  option,
 }: SidebarItemProps) {
   const router = useRouter();
 
@@ -22,9 +22,9 @@ export const SidebarItem = memo(function SidebarItem({
         : typeof temp === "string"
         ? [temp]
         : [...temp];
-    const isSelected = attribute?.includes(subCategory.slug);
+    const isSelected = attribute?.includes(option.value);
     return { attribute, isSelected };
-  }, [router.query?.attribute, subCategory.slug]);
+  }, [router.query?.attribute, option.value]);
 
   const handleClickItem = useCallback(() => {
     router.push(
@@ -33,14 +33,14 @@ export const SidebarItem = memo(function SidebarItem({
         query: {
           ...router.query,
           attribute: !isSelected
-            ? [...attribute, subCategory.slug]
-            : [...attribute.filter((attr) => attr !== subCategory.slug)],
+            ? [...attribute, option.value]
+            : [...attribute.filter((attr) => attr !== option.value)],
         },
       },
       undefined,
       { shallow: true }
     );
-  }, [isSelected, attribute, router, subCategory.slug]);
+  }, [isSelected, attribute, router, option.value]);
 
   return (
     <Flex
@@ -57,7 +57,7 @@ export const SidebarItem = memo(function SidebarItem({
       transition={"all .3s ease"}
       onClick={() => handleClickItem()}
     >
-      <Box cursor={"default"}>{subCategory.name}</Box>
+      <Box cursor={"default"}>{option.label}</Box>
       {isSelected && <CloseIcon boxSize={"10px"} />}
     </Flex>
   );

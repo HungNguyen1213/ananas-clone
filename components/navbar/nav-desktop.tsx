@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 
 import { NavRouteItem } from "./nav-item";
 import { MAIN_ROUTES } from "@/configs";
-import { useCategoryStore } from "@/hooks";
+import { useAttributeStore } from "@/hooks";
 
 export function NavDesktop() {
-  const { fetchCategoryList } = useCategoryStore();
+  const { fetchAttributeList } = useAttributeStore();
 
   useEffect(() => {
-    fetchCategoryList();
-  }, [fetchCategoryList]);
+    fetchAttributeList();
+  }, [fetchAttributeList]);
 
   return (
     <Box>
