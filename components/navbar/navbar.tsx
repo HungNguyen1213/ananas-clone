@@ -1,10 +1,8 @@
 import { Box, HStack } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
 
-import { Input } from "@/components";
 import { NavControlPanel } from "./nav-item";
 import { HotNews } from "./hot-news";
 import { NavDesktop } from "./nav-desktop";
@@ -12,6 +10,7 @@ import { CONTROL_ROUTES } from "@/configs";
 import { useCartStore } from "@/hooks";
 
 import logo from "@/images/logo.svg";
+import { SearchControl } from "./search-control";
 
 export default function Navbar() {
   const { fetchCart } = useCartStore();
@@ -56,11 +55,7 @@ export default function Navbar() {
         </Box>
         <NavDesktop />
         <Box pb={"30px"}>
-          <Input
-            name="search"
-            leftIcon={<SearchIcon boxSize={5} color="gray.500" />}
-            placeholder="Tìm kiếm"
-          />
+          <SearchControl />
         </Box>
       </HStack>
       <HotNews />

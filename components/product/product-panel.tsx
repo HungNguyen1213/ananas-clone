@@ -20,10 +20,10 @@ export function ProductPanel() {
   useEffect(() => {
     (async () => {
       try {
-        console.log({ attribute });
         setIsLoading(true);
         const { data: resProducts } = await commerce.products.list({
-          attributes: { attr_VNplJa1EaYwL60: attribute },
+          category_slug: attribute,
+          include: "variant_groups",
         });
         const products: ProductSummary[] =
           resProducts?.map((product) => ({
@@ -32,10 +32,10 @@ export function ProductPanel() {
             image: product.image,
             price: product.price,
             permalink: product.permalink,
+            variant_groups: product.variant_groups,
           })) || [];
         setProductList(products);
       } catch (error) {
-        console.log(error);
         setProductList([]);
       } finally {
         setIsLoading(false);

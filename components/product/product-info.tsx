@@ -75,7 +75,7 @@ export function ProductInfo({ product, children }: ProductInfoProps) {
           Thanh toán
         </Button>
       </Box>
-      <Accordion allowToggle>
+      <Accordion allowToggle defaultIndex={[0]}>
         <AccordionItem title="Thông tin sản phẩm">
           <Divider
             mt={6}

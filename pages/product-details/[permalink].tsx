@@ -20,9 +20,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   const seoData: SeoData = {
     title: product?.name,
-    description: product?.description || DEFAULT_DESCRIPTION_PRODUCT_DETAILS,
+    description: DEFAULT_DESCRIPTION_PRODUCT_DETAILS,
     thumbnailUrl: product?.assets?.[0]?.url,
-    url: `https://ananas-clone.vercel.app/product-details/${product?.permalink}`,
+    url: router.asPath,
   };
 
   return (

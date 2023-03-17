@@ -9,8 +9,7 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 
-export interface InputProps
-  extends Omit<ChakraInputProps, "onChange" | "onBlur" | "value"> {
+export interface InputProps extends Omit<ChakraInputProps, "onBlur"> {
   name: string;
   leftIcon?: React.ReactNode;
   label?: string;

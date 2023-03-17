@@ -27,28 +27,54 @@ export function NavDesktopPanel({ href }: NavDesktopPanelProps) {
       cursor="default"
       lineHeight={"1.15"}
     >
-      {href === "/product-list" ? <MainPanel /> : <AttributePanel />}
+      {href === "/product-list" ? (
+        <MainPanel />
+      ) : (
+        <AttributePanel href={href} />
+      )}
     </Box>
   );
 }
 
-function AttributePanel() {
+function AttributePanel({ href }: NavDesktopPanelProps) {
   const { attributeList, isLoading } = useAttributeStore();
 
   if (isLoading) return null;
 
-  const attributeGroup = attributeList?.filter(
-    (attribute) => attribute.options.length
+  const attributeGroup1 = attributeList?.filter(
+    (attribute) =>
+      attribute.name.toLowerCase() === "trạng thái" ||
+      attribute.name.toLowerCase() === "kiểu dáng"
   );
 
-  console.log({ attributeList });
+  const attributeGroup2 = attributeList?.filter(
+    (attribute) =>
+      attribute.name.toLowerCase() === "dòng sản phẩm" ||
+      attribute.name.toLowerCase() === "bộ sưu tập"
+  );
 
   return (
     <Flex direction={"column"} align="center">
-      <Flex justify="center">
-        {attributeGroup.map((attribute) => (
-          <AttributePanelItem key={attribute.id} attribute={attribute} />
-        ))}
+      <Flex>
+        <Flex flexDirection={"column"}>
+          {attributeGroup1.map((attribute) => (
+            <AttributePanelItem
+              key={attribute.id}
+              attribute={attribute}
+              href={href}
+            />
+          ))}
+          <Box />
+        </Flex>
+        <Flex justify="center">
+          {attributeGroup2.map((attribute) => (
+            <AttributePanelItem
+              key={attribute.id}
+              attribute={attribute}
+              href={href}
+            />
+          ))}
+        </Flex>
       </Flex>
       <ComingSoonLink />
     </Flex>
@@ -57,9 +83,10 @@ function AttributePanel() {
 
 interface AttributePanelItem {
   attribute: Attribute;
+  href: string;
 }
 
-function AttributePanelItem({ attribute }: AttributePanelItem) {
+function AttributePanelItem({ attribute, href }: AttributePanelItem) {
   return (
     <Box
       m={"30px 20px 40px"}
@@ -86,7 +113,7 @@ function AttributePanelItem({ attribute }: AttributePanelItem) {
           key={item.id}
           _hover={{ color: "primary" }}
         >
-          {item.label}
+          <Link href={`${href}&attribute=${item.value}`}>{item.label}</Link>
         </Text>
       ))}
     </Box>

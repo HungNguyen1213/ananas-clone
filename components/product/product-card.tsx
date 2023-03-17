@@ -11,6 +11,13 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const color = () => {
+    const variantColor = product?.variant_groups.find(
+      (variant) => variant.name.toLowerCase() === "color"
+    );
+    return variantColor ? variantColor.options[0].name : "N/A";
+  };
+
   return (
     <Center pt={8} height={"full"} pb={4}>
       <Stack
@@ -54,7 +61,7 @@ export function ProductCard({ product }: ProductCardProps) {
         >
           <Stack>
             <Text color={"gray.500"} fontSize={"sm"}>
-              Brand
+              {color()}
             </Text>
             <Heading
               fontSize={"lg"}

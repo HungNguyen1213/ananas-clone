@@ -91,17 +91,17 @@ export const PRODUCT_NAV_PANEL_ROUTE: BannerItem[] = [
   {
     label: "Thời trang & phụ kiện",
     image: menuAccessory,
-    href: "/product-list/accessories",
+    href: "/product-list?attribute=fashion",
   },
 ];
 
 export const BANNER_MAIN_ROUTES: BannerItem[] = [
   {
-    href: "/product-list/living-journey",
+    href: "/product-list?attribute=living-journey",
     image: livingJourney,
   },
   {
-    href: "/product-list/slip-on",
+    href: "/product-list?attribute=mule",
     image: hiImMule,
   },
 ];
@@ -109,14 +109,14 @@ export const BANNER_MAIN_ROUTES: BannerItem[] = [
 export const BANNER_SUPPORT_ROUTES: BannerItem[] = [
   {
     label: "All black in black",
-    href: "/product-list/all-in-black",
+    href: "/product-list?attribute=mono",
     image: allInBlack,
     description:
       "Mặc dù được ứng dụng rất nhiều, nhưng sắc đen lúc nào cũng toát lên một vẻ huyền bí không nhàm chán",
   },
   {
     label: `BÌNH MỚI RƯỢU "MỚI"`,
-    href: "/product-list/basas",
+    href: "/product-list?attribute=basas",
     image: basas,
     description:
       "Vẫn kế thừa vẻ tối giản, nguyên bản đã được định hướng bởi cái tên, Basas mới trở lại với những cải tiến đáng giá chắc chắn sẽ đem đến một trải nghiệm thú vị như hành trình chúng tôi làm ra nó.",
