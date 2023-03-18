@@ -8,7 +8,11 @@ interface CartStore {
   isLoading: boolean;
   fetchCart: () => Promise<void>;
   refreshCart: () => Promise<void>;
-  addToCart: (productId: string, quantity: number) => Promise<void>;
+  addToCart: (
+    productId: string,
+    quantity?: number,
+    options?: string | object
+  ) => Promise<void>;
 }
 
 export const useCartStore = create<CartStore>((set) => ({
@@ -22,9 +26,9 @@ export const useCartStore = create<CartStore>((set) => ({
     await commerce.cart.refresh();
     set({ cart: null });
   },
-  addToCart: async (productId, quantity) => {
+  addToCart: async (productId, quantity, options) => {
     set({ isLoading: true });
-    const res: any = await commerce.cart.add(productId, quantity);
+    const res: any = await commerce.cart.add(productId, quantity, options);
     set((prev) => ({ cart: { ...prev, ...res }, isLoading: false }));
   },
 }));

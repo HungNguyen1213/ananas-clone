@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { commerce } from "@/libs";
-import { ProductInfo, Seo, SliderImage } from "@/components";
+import { Control, ProductInfo, Seo, SliderImage } from "@/components";
 import { SeoData } from "@/models";
 import { DEFAULT_DESCRIPTION_PRODUCT_DETAILS } from "@/configs";
 
@@ -37,7 +37,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <SliderImage images={product.assets} />
             </Box>
             <Box width="calc(calc(100% - 64px) / 12 * 5)">
-              <ProductInfo product={product} />
+              <ProductInfo product={product}>
+                <Control productId={product.id} />
+              </ProductInfo>
             </Box>
           </Flex>
         </Container>

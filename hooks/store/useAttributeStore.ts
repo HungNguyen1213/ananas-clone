@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import axios from "axios";
 
 import { Attribute } from "@/models";
+import { fetchData } from "..";
 
 interface AttributeStore {
   attributeList: Attribute[];
@@ -14,19 +14,10 @@ export const useAttributeStore = create<AttributeStore>((set) => ({
   isLoading: false,
   fetchAttributeList: async () => {
     set({ isLoading: true });
-    const headers = {
-      "X-Authorization": process.env.NEXT_PUBLIC_COMMERCE_API_SECRET_KEY,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
+
     const {
       data: { data: attributeList },
-    } = await axios.get(
-      `${process.env.NEXT_PUBLIC_COMMERCE_BASE_URL}/attributes`,
-      {
-        headers,
-      }
-    );
+    } = await fetchData("/attributes");
     set({ attributeList, isLoading: false });
   },
 }));

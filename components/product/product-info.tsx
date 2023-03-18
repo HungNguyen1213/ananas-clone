@@ -1,7 +1,6 @@
 import {
   Accordion,
   Box,
-  Button,
   Divider,
   ListItem,
   Text,
@@ -13,7 +12,6 @@ import parse from "html-react-parser";
 import Image from "next/image";
 
 import { AccordionItem } from "../common";
-import { useCartStore } from "@/hooks";
 
 import sizeChart from "@/images/size-chart.jpg";
 
@@ -23,8 +21,6 @@ export interface ProductInfoProps {
 }
 
 export function ProductInfo({ product, children }: ProductInfoProps) {
-  const { addToCart, isLoading } = useCartStore();
-
   return (
     <Box>
       <Text textStyle={"h1"} as="h1" mb="30px">
@@ -59,22 +55,6 @@ export function ProductInfo({ product, children }: ProductInfoProps) {
         </>
       )}
       {children}
-      <Box mb={5}>
-        <Button
-          width="100%"
-          onClick={() => addToCart(product.id, 1)}
-          isLoading={isLoading}
-          loadingText="Thêm vào giỏ hàng"
-          spinnerPlacement="end"
-        >
-          Thêm vào giỏ hàng
-        </Button>
-      </Box>
-      <Box>
-        <Button width="100%" bg="primary" _hover={{ bg: "orange.600" }}>
-          Thanh toán
-        </Button>
-      </Box>
       <Accordion allowToggle defaultIndex={[0]}>
         <AccordionItem title="Thông tin sản phẩm">
           <Divider
