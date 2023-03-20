@@ -46,7 +46,7 @@ export function ProductPanel() {
   return (
     <Container opacity={isLoading ? "0.7" : 1}>
       <HStack gap={4} align="flex-start">
-        <Box w="25%" flexShrink={0}>
+        <Box w="25%" flexShrink={0} display={{ base: "none", lg: "block" }}>
           <Sidebar />
         </Box>
         <Box flexGrow={1}>

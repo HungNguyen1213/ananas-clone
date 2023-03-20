@@ -10,7 +10,15 @@ export interface ProductListProps {
 
 export function ProductList({ productList }: ProductListProps) {
   return (
-    <Grid templateColumns="repeat(3, 1fr)" columnGap={6} flexGrow={1}>
+    <Grid
+      templateColumns={{
+        base: "repeat(1, 1fr)",
+        md: "repeat(2, 1fr)",
+        lg: "repeat(3, 1fr)",
+      }}
+      columnGap={6}
+      flexGrow={1}
+    >
       {productList.map((product: ProductSummary) => (
         <GridItem key={product.id}>
           <ProductCard product={product} />

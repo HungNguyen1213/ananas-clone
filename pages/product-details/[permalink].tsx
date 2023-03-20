@@ -32,11 +32,18 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       ) : (
         <Container>
           <Seo data={seoData} />
-          <Flex gap={16}>
-            <Box width="calc(calc(100% - 64px) / 12 * 7)">
+          <Flex
+            gap={{ base: 4, lg: 16 }}
+            direction={{ base: "column", lg: "row" }}
+          >
+            <Box
+              width={{ base: "100%", lg: "calc(calc(100% - 64px) / 12 * 7)" }}
+            >
               <SliderImage images={product.assets} />
             </Box>
-            <Box width="calc(calc(100% - 64px) / 12 * 5)">
+            <Box
+              width={{ base: "100%", lg: "calc(calc(100% - 64px) / 12 * 5)" }}
+            >
               <ProductInfo product={product}>
                 <Control productId={product.id} />
               </ProductInfo>

@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 
 interface SliderBannerProps {
   slides: BannerItem[];
-  slideHeight: string;
+  slideHeight?: string;
   imageHeight?: string;
 }
 
@@ -72,7 +72,7 @@ export function SliderBanner({
                 <Text
                   textStyle="h1"
                   as="h3"
-                  mt="30px"
+                  mt={{ base: "15px", md: "30px" }}
                   mb="10px"
                   pr={1}
                   _hover={{ color: "primary" }}

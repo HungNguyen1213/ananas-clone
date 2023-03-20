@@ -1,19 +1,30 @@
-import { Box, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  IconButton,
+  Slide,
+  useDisclosure,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import { NavControlPanel } from "./nav-item";
 import { HotNews } from "./hot-news";
 import { NavDesktop } from "./nav-desktop";
 import { CONTROL_ROUTES } from "@/configs";
 import { useCartStore } from "@/hooks";
+import { SearchControl } from "./search-control";
+import { NavMobile } from "./nav-mobile";
 
 import logo from "@/images/logo.svg";
-import { SearchControl } from "./search-control";
 
 export default function Navbar() {
   const { fetchCart } = useCartStore();
+
+  const { isOpen: isOpenMobileNav, onToggle: toggleMobileNav } =
+    useDisclosure();
 
   useEffect(() => {
     fetchCart();
@@ -29,6 +40,7 @@ export default function Navbar() {
         spacing={5}
         pr={16}
         mb={3}
+        display={{ base: "none", lg: "flex" }}
       >
         {CONTROL_ROUTES.map((route) => (
           <NavControlPanel key={route.href} route={route} />
@@ -37,26 +49,49 @@ export default function Navbar() {
       <HStack
         height={{ base: "20vw", lg: "112px" }}
         maxHeight={{ base: "135px" }}
-        px={16}
-        pt={6}
+        px={{ base: 0, lg: 16 }}
+        pt={{ base: 0, lg: 6 }}
         justify="space-between"
         align={{ base: "center", lg: "flex-end" }}
         position="relative"
       >
         <Box
-          width={{ base: 7, lg: 14 }}
-          height="100%"
-          mb={5}
+          width={{ base: 14, lg: 14 }}
+          height={{ base: "14", md: "100%" }}
+          mb={{ base: 0, lg: 5 }}
           position="relative"
+          mx={{ base: "10", md: "20", lg: 0 }}
+          // borderRight={{ base: "#f1f1f1 1px solid", lg: "none" }}
         >
           <Link href="/">
             <Image src={logo} alt="Logo" fill />
           </Link>
         </Box>
         <NavDesktop />
-        <Box pb={"30px"}>
+        <Box pb={"30px"} display={{ base: "none", lg: "block" }}>
           <SearchControl />
         </Box>
+        <IconButton
+          height="20vw"
+          width="20vw"
+          maxW="135px"
+          maxH="135px"
+          display={{ base: "inline-flex", lg: "none" }}
+          bgColor="#4c4c4c"
+          aria-label="Toogle mobile menu"
+          fontSize="40px"
+          icon={isOpenMobileNav ? <CloseIcon /> : <HamburgerIcon />}
+          onClick={toggleMobileNav}
+        />
+        <Slide
+          direction="left"
+          in={isOpenMobileNav}
+          style={{ zIndex: 10, top: "135px", marginInlineStart: 0 }}
+        >
+          <Box p="40px" color="white" bgColor="#4c4c4c" height="100%">
+            <NavMobile />
+          </Box>
+        </Slide>
       </HStack>
       <HotNews />
     </Box>

@@ -22,7 +22,7 @@ const styles = {
 
 const textStyles = {
   h1: {
-    fontSize: ["30px"],
+    fontSize: ["15px", "30px"],
     fontWeight: "bold",
     lineHeight: "110%",
     textTransform: "uppercase",
@@ -34,7 +34,7 @@ const textStyles = {
     textTransform: "uppercase",
   },
   p: {
-    fontSize: ["16px"],
+    fontSize: ["12px", "16px"],
     lineHeight: "1.5",
     fontFamily: "Nunito Sans, sans-serif",
   },
@@ -79,8 +79,8 @@ const Container = defineStyleConfig({
   sizes: {
     custom: defineStyle({
       maxW: "1200px",
-      px: { base: "4", lg: "0" },
-      py: 8,
+      px: { base: "2.5", md: 5, lg: 0 },
+      py: { base: "2.5", md: 5, lg: 8 },
     }),
   },
   defaultProps: {

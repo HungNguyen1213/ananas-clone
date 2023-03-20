@@ -1,4 +1,10 @@
-import { Box, Container, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -24,21 +30,46 @@ export default function Home() {
       "Với nhiều người, 2 thập kỷ sản xuất giày đã là một kỷ lục. Với Ananas, điều đó chỉ mới bắt đầu.",
   };
 
+  const bannerHeight = useBreakpointValue({
+    base: "200px",
+    md: "400px",
+    lg: "786px",
+  });
+  const bannerSupportHeight = useBreakpointValue({
+    base: "256px",
+    md: "410px",
+    lg: "475px",
+  });
+  const imageBannerSupportHeight = useBreakpointValue({
+    base: "90px",
+    md: "190px",
+    lg: "320px",
+  });
+  const bannerSupportGap = useBreakpointValue({
+    base: "10px",
+    md: "20px",
+    lg: "40px",
+  });
+
   return (
     <Box>
       <Seo data={seoData} />
-      <SliderBanner slides={BANNER_MAIN_ROUTES} slideHeight="768px" />
+      <SliderBanner slides={BANNER_MAIN_ROUTES} slideHeight={bannerHeight} />
       <Container>
-        <Flex gap={10}>
-          <Box width="calc(calc(100% - 40px) / 2)">
+        <Flex gap={bannerSupportGap}>
+          <Box width={`calc(calc(100% - ${bannerSupportGap}) / 2)`}>
             <SliderBanner
               slides={BANNER_SUPPORT_ROUTES}
-              slideHeight="475px"
-              imageHeight="320px"
+              slideHeight={bannerSupportHeight}
+              imageHeight={imageBannerSupportHeight}
             />
           </Box>
-          <Box width="calc(calc(100% - 40px) / 2)">
-            <Box height={"320px"} width="100%" position="relative">
+          <Box width={`calc(calc(100% - ${bannerSupportGap}) / 2)`}>
+            <Box
+              height={imageBannerSupportHeight}
+              width="100%"
+              position="relative"
+            >
               <Link href={BANNER_SALE_OFF_ROUTE.href}>
                 <Image src={BANNER_SALE_OFF_ROUTE.image} alt="Banner" fill />
               </Link>
@@ -48,7 +79,7 @@ export default function Home() {
                 <Text
                   textStyle="h1"
                   as="h3"
-                  mt="30px"
+                  mt={{ base: "15px", md: "30px" }}
                   mb="10px"
                   pr={1}
                   _hover={{ color: "primary" }}
@@ -69,7 +100,7 @@ export default function Home() {
             Danh mục mua hàng
           </Text>
           <Flex gap={2.5}>
-            <Box flexGrow={1} height="270px" position="relative">
+            <Box width="100%" height="270px" position="relative">
               <Image src={menCatalog} alt="Catalog" fill />
               <Box
                 width="100%"
@@ -81,7 +112,7 @@ export default function Home() {
               />
               Giày nam
             </Box>
-            <Box flexGrow={1} height="270px" position="relative">
+            <Box width="100%" height="270px" position="relative">
               Giày nữ
               <Image src={womenCataLog} alt="Catalog" fill />
               <Box
@@ -93,7 +124,7 @@ export default function Home() {
                 left="0"
               />
             </Box>
-            <Box flexGrow={1} height="270px" position="relative">
+            <Box width="100%" height="270px" position="relative">
               Dòng sản phẩm
               <Image src={branchCatalog} alt="Catalog" fill />
               <Box

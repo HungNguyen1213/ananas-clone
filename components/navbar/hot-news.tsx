@@ -22,7 +22,7 @@ export function HotNews() {
       bg="blackAlpha.100"
       sx={{
         "& .swiper": {
-          width: "50%",
+          width: { base: "100%", lg: "50%" },
           height: "100%",
           margin: "0 !important",
         },
@@ -53,6 +53,7 @@ export function HotNews() {
             _groupHover={{ color: "gray.900" }}
           />
         }
+        display={{ base: "none", lg: "inline-flex" }}
         ref={navigationPrevRef}
         onClick={() => swiperRef.current?.slidePrev()}
       >
@@ -78,6 +79,7 @@ export function HotNews() {
               align="center"
               justify="center"
               fontStyle="italic"
+              fontSize={{ base: "12px", md: "16px" }}
             >
               {item.label}
             </Flex>
@@ -96,6 +98,7 @@ export function HotNews() {
             _groupHover={{ color: "gray.900" }}
           />
         }
+        display={{ base: "none", lg: "inline-flex" }}
         ref={navigationNextRef}
         onClick={() => swiperRef.current?.slideNext()}
       >

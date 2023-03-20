@@ -26,6 +26,7 @@ export function NavDesktopPanel({ href }: NavDesktopPanelProps) {
       color="text.lightGray"
       cursor="default"
       lineHeight={"1.15"}
+      display={{ base: "none", lg: "block" }}
     >
       {href === "/product-list" ? (
         <MainPanel />

@@ -18,14 +18,15 @@ export default function YourCart() {
     thumbnailUrl: "",
   };
 
-  console.log(cart);
-
   return (
     <Container>
       <Seo data={seoData} />
-      {cart ? (
-        <Flex gap={"40px"}>
-          <Box width="calc(calc(100% - 40px) / 3 * 2)">
+      {cart?.line_items && cart.line_items.length > 0 ? (
+        <Flex
+          gap={{ base: 0, lg: "40px" }}
+          direction={{ base: "column", lg: "row" }}
+        >
+          <Box width={{ base: "100%", lg: "calc(calc(100% - 40px) / 3 * 2)" }}>
             <CartItemList lineItems={cart?.line_items} />
             <Flex align={"center"} justify={"space-between"}>
               <Button
@@ -44,7 +45,9 @@ export default function YourCart() {
               </Link>
             </Flex>
           </Box>
-          <Box width="calc(calc(100% - 40px) / 3)">Đơn hàng</Box>
+          <Box width={{ base: "100%", lg: "calc(calc(100% - 40px) / 3)" }}>
+            Đơn hàng
+          </Box>
         </Flex>
       ) : (
         <EmptyCart />

@@ -13,7 +13,7 @@ export function NavDesktop() {
   }, [fetchAttributeList]);
 
   return (
-    <Box>
+    <Box display={{ base: "none", lg: "block" }}>
       <Flex align="center" justify="center">
         {MAIN_ROUTES.map((route) => (
           <React.Fragment key={route.href}>
