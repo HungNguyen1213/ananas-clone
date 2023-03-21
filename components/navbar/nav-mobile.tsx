@@ -1,16 +1,13 @@
 import { Box } from "@chakra-ui/react";
 import * as React from "react";
+import Link from "next/link";
 
-import { PRODUCT_NAV_PANEL_ROUTE } from "@/configs";
-import { NavMobileItem } from "./nav-item";
+import { CONTROL_ROUTES, PRODUCT_NAV_PANEL_ROUTE } from "@/configs";
+import { NavMobileControlPanel, NavMobileItem } from "./nav-item";
 import { NavMobileItem as NavMobileItemType } from "@/models";
 import { useAttributeStore } from "@/hooks";
 
-interface NavMobileProps {
-  onClose: () => void;
-}
-
-export function NavMobile({ onClose }: NavMobileProps) {
+export function NavMobile() {
   const { attributeList, isLoading } = useAttributeStore();
 
   if (isLoading) return null;
@@ -63,12 +60,34 @@ export function NavMobile({ onClose }: NavMobileProps) {
   ];
 
   return (
-    <Box bg="#4c4c4c">
+    <Box bg="#4c4c4c" height="100%" overflow={"auto"}>
       {navMobile.map((route) => (
         <React.Fragment key={route.href}>
-          <NavMobileItem onCloseNavMobile={onClose} route={route} />
+          <NavMobileItem route={route} />
         </React.Fragment>
       ))}
+      {CONTROL_ROUTES.filter(
+        (route) => route.label.toLowerCase() !== "giỏ hàng"
+      ).map((route) => (
+        <NavMobileControlPanel key={route.href} route={route} />
+      ))}
+      <Box p="30px" borderTop="2px solid white">
+        <Link href="/coming-soon" passHref>
+          <Box
+            fontSize={"4vw"}
+            fontFamily="Nunito Sans, sans-serif"
+            fontStyle="italic"
+            color="#808080"
+            textAlign={"center"}
+          >
+            MỌI NGƯỜI THƯỜNG GỌI CHÚNG TÔI LÀ
+            <Box sx={{ px: "1", color: "white", display: "inline-block" }}>
+              DỨA
+            </Box>
+            !
+          </Box>
+        </Link>
+      </Box>
     </Box>
   );
 }

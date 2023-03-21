@@ -1,16 +1,22 @@
 import {
   Box,
+  Flex,
   HStack,
+  Icon,
   IconButton,
   Modal,
   ModalContent,
-  Slide,
   useDisclosure,
+  Center,
+  Badge,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
+import { FaShoppingCart } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 import { NavControlPanel } from "./nav-item";
 import { HotNews } from "./hot-news";
@@ -23,7 +29,9 @@ import { NavMobile } from "./nav-mobile";
 import logo from "@/images/logo.svg";
 
 export default function Navbar() {
-  const { fetchCart } = useCartStore();
+  const { fetchCart, cart } = useCartStore();
+
+  const router = useRouter();
 
   const {
     isOpen: isOpenMobileNav,
@@ -31,9 +39,20 @@ export default function Navbar() {
     onClose: onCloseMobileNav,
   } = useDisclosure();
 
+  const {
+    isOpen: isOpenSearch,
+    onOpen: onOpenSearch,
+    onClose: onCloseSearch,
+  } = useDisclosure();
+
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
+
+  useEffect(() => {
+    onCloseSearch();
+    onCloseMobileNav();
+  }, [router.asPath, onCloseSearch, onCloseMobileNav]);
 
   return (
     <Box>
@@ -53,7 +72,6 @@ export default function Navbar() {
       </HStack>
       <HStack
         height={{ base: "20vw", lg: "112px" }}
-        maxHeight={{ base: "135px" }}
         px={{ base: 0, lg: 16 }}
         pt={{ base: 0, lg: 6 }}
         justify="space-between"
@@ -66,7 +84,6 @@ export default function Navbar() {
           mb={{ base: 0, lg: 5 }}
           position="relative"
           mx={{ base: "10", md: "20", lg: 0 }}
-          // borderRight={{ base: "#f1f1f1 1px solid", lg: "none" }}
         >
           <Link href="/">
             <Image src={logo} alt="Logo" fill />
@@ -76,27 +93,70 @@ export default function Navbar() {
         <Box pb={"30px"} display={{ base: "none", lg: "block" }}>
           <SearchControl />
         </Box>
+        <Box
+          flexGrow={1}
+          display={{ base: "block", lg: "none" }}
+          borderLeft={{ base: "#f1f1f1 1px solid", lg: "none" }}
+        >
+          <Flex justify={"end"} align="center">
+            <IconButton
+              bg="transparent"
+              _hover={{ bg: "transparent" }}
+              aria-label="Search"
+              icon={<SearchIcon color="black" boxSize={{ base: 6, md: 12 }} />}
+              height="20vw"
+              minW={{ base: "12", md: "15vw" }}
+              onClick={onOpenSearch}
+            />
+            <Modal isOpen={isOpenSearch} onClose={onCloseSearch}>
+              <ModalOverlay />
+              <ModalContent
+                maxW="unset"
+                mt={"20vw"}
+                px={10}
+                py={5}
+                bg="black"
+                borderRadius="0"
+              >
+                <Box bg="white">
+                  <SearchControl />
+                </Box>
+              </ModalContent>
+            </Modal>
+            <Link href="/your-cart">
+              <Center minW={{ base: "12", md: "15vw" }} height="20vw">
+                <Icon as={FaShoppingCart} boxSize={{ base: 6, md: 12 }} />
+                <Badge
+                  transform={"translate(-50%,-60%)"}
+                  borderRadius="50%"
+                  colorScheme={"red"}
+                  fontSize={{ base: "xs", md: "xl" }}
+                >
+                  <Center>{cart?.total_items || 0}</Center>
+                </Badge>
+              </Center>
+            </Link>
+          </Flex>
+        </Box>
         <IconButton
           height="20vw"
           width="20vw"
-          maxW="135px"
-          maxH="135px"
           display={{ base: "inline-flex", lg: "none" }}
           bgColor="#4c4c4c"
           aria-label="Toogle mobile menu"
-          fontSize="40px"
+          fontSize={{ base: "28px", md: "40px" }}
           icon={isOpenMobileNav ? <CloseIcon /> : <HamburgerIcon />}
           onClick={onToggleMobileNav}
         />
         <Modal isOpen={isOpenMobileNav} onClose={onCloseMobileNav}>
           <ModalContent
             maxW="unset"
-            height="calc(100% - 135px)"
-            mt="135px"
+            height="calc(100% - 20vw)"
+            mt="20vw"
             mb="0"
           >
             <Box color="white" bgColor="#4c4c4c" height="100%">
-              <NavMobile onClose={onCloseMobileNav} />
+              <NavMobile />
             </Box>
           </ModalContent>
         </Modal>

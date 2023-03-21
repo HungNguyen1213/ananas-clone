@@ -32,7 +32,7 @@ export function Select(props: SelectProps) {
 
   return (
     <Box>
-      <Text textStyle={"h2"} mb="10px">
+      <Text textStyle={"h2"} mb={{ base: "5px", md: "10px" }}>
         {label}
       </Text>
       <Popover placement="bottom-start" isOpen={isOpen} onClose={onClose}>
@@ -49,6 +49,7 @@ export function Select(props: SelectProps) {
               lineHeight: "9",
               height: "9",
               width: "100%",
+              minW: "100px",
               position: "relative",
               color: "black",
               justifyContent: "start",

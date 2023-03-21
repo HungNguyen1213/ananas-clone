@@ -28,7 +28,7 @@ const textStyles = {
     textTransform: "uppercase",
   },
   h2: {
-    fontSize: ["23px"],
+    fontSize: ["14px", "23px"],
     fontWeight: "bold",
     lineHeight: "110%",
     textTransform: "uppercase",

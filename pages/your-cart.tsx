@@ -28,9 +28,9 @@ export default function YourCart() {
         >
           <Box width={{ base: "100%", lg: "calc(calc(100% - 40px) / 3 * 2)" }}>
             <CartItemList lineItems={cart?.line_items} />
-            <Flex align={"center"} justify={"space-between"}>
+            <Flex align={"center"} justify={"space-between"} gap={2}>
               <Button
-                width="240px"
+                width={{ base: "100%", md: "240px" }}
                 height="40px"
                 fontSize="18px"
                 onClick={refreshCart}
@@ -39,7 +39,12 @@ export default function YourCart() {
                 Xóa hết
               </Button>
               <Link href="/product-list">
-                <Button width="240px" height="40px" fontSize="18px" px={3}>
+                <Button
+                  width={{ base: "100%", md: "240px" }}
+                  height="40px"
+                  fontSize="18px"
+                  px={3}
+                >
                   Quay lại mua hàng
                 </Button>
               </Link>

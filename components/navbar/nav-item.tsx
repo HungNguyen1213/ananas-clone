@@ -46,6 +46,29 @@ export function NavControlPanel({
   );
 }
 
+export function NavMobileControlPanel({
+  route: { label, href, leftIcon },
+}: NavControlPanelProps) {
+  return (
+    <Link href={href} passHref>
+      <ChakraLink
+        as="div"
+        fontFamily="Ubuntu, sans-serif"
+        letterSpacing="1px"
+        padding="30px"
+        fontSize="4.5vw"
+        color="white"
+        _hover={{ color: "white" }}
+      >
+        <Flex align="center">
+          {leftIcon && <Icon color="white" boxSize={"5.5vw"} as={leftIcon} />}
+          <Text marginInlineStart={6}>{label}</Text>
+        </Flex>
+      </ChakraLink>
+    </Link>
+  );
+}
+
 export function NavRouteItem({
   route: { label, href, rightIcon },
 }: NavControlPanelProps) {
@@ -110,12 +133,10 @@ export function NavRouteItem({
 
 interface NavMobileItemProps {
   route: NavMobileItem;
-  onCloseNavMobile: () => void;
 }
 
 export function NavMobileItem({
   route: { label, href, children },
-  onCloseNavMobile,
 }: NavMobileItemProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -127,7 +148,6 @@ export function NavMobileItem({
     }
     if (!children && href) {
       router.push(href);
-      onCloseNavMobile();
     }
   };
 
@@ -149,7 +169,7 @@ export function NavMobileItem({
       {label}
       {children && children.length > 0 && (
         <>
-          <ChevronRightIcon boxSize={14} />
+          <ChevronRightIcon boxSize={{ base: 8, md: 14 }} />
           <Slide
             unmountOnExit
             direction="right"
@@ -157,7 +177,7 @@ export function NavMobileItem({
             style={{
               zIndex: 20,
               top: ["sản phẩm", "nam", "nữ"].includes(label.toLowerCase())
-                ? "135px"
+                ? "20vw"
                 : 0,
               marginInlineStart: 0,
             }}
@@ -182,7 +202,7 @@ export function NavMobileItem({
               >
                 {label}
                 <ChevronLeftIcon
-                  boxSize={14}
+                  boxSize={{ base: 8, md: 14 }}
                   position="absolute"
                   top="50%"
                   left="30px"
@@ -190,11 +210,7 @@ export function NavMobileItem({
                 />
               </Box>
               {children.map((item, index) => (
-                <NavMobileItem
-                  onCloseNavMobile={onCloseNavMobile}
-                  key={item.href || index}
-                  route={item}
-                />
+                <NavMobileItem key={item.href || index} route={item} />
               ))}
             </Box>
           </Slide>
