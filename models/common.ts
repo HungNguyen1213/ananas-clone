@@ -14,6 +14,12 @@ export interface NavItem {
   rightIcon?: any;
 }
 
+export interface NavMobileItem {
+  label: string;
+  href?: string;
+  children?: NavMobileItem[];
+}
+
 export interface BannerItem {
   label?: string;
   href: string;

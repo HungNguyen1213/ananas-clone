@@ -2,6 +2,8 @@ import {
   Box,
   HStack,
   IconButton,
+  Modal,
+  ModalContent,
   Slide,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -23,8 +25,11 @@ import logo from "@/images/logo.svg";
 export default function Navbar() {
   const { fetchCart } = useCartStore();
 
-  const { isOpen: isOpenMobileNav, onToggle: toggleMobileNav } =
-    useDisclosure();
+  const {
+    isOpen: isOpenMobileNav,
+    onToggle: onToggleMobileNav,
+    onClose: onCloseMobileNav,
+  } = useDisclosure();
 
   useEffect(() => {
     fetchCart();
@@ -81,17 +86,20 @@ export default function Navbar() {
           aria-label="Toogle mobile menu"
           fontSize="40px"
           icon={isOpenMobileNav ? <CloseIcon /> : <HamburgerIcon />}
-          onClick={toggleMobileNav}
+          onClick={onToggleMobileNav}
         />
-        <Slide
-          direction="left"
-          in={isOpenMobileNav}
-          style={{ zIndex: 10, top: "135px", marginInlineStart: 0 }}
-        >
-          <Box p="40px" color="white" bgColor="#4c4c4c" height="100%">
-            <NavMobile />
-          </Box>
-        </Slide>
+        <Modal isOpen={isOpenMobileNav} onClose={onCloseMobileNav}>
+          <ModalContent
+            maxW="unset"
+            height="calc(100% - 135px)"
+            mt="135px"
+            mb="0"
+          >
+            <Box color="white" bgColor="#4c4c4c" height="100%">
+              <NavMobile onClose={onCloseMobileNav} />
+            </Box>
+          </ModalContent>
+        </Modal>
       </HStack>
       <HotNews />
     </Box>
